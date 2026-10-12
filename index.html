@@ -1,4 +1,4 @@
-<title>ISRL Switcher</title>
+<title>ISRL Swipe</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
@@ -12,128 +12,88 @@
     --display:'Oswald','Arial Narrow',sans-serif;
     --body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   }
-  *{box-sizing:border-box;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   body{background:var(--void);color:var(--paper);font-family:var(--body);margin:0;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
   img{display:block;}
   a{color:inherit;text-decoration:none;}
   button{font:inherit;}
   .wrap{max-width:1280px;margin:0 auto;padding-inline:clamp(20px,5vw,64px);}
-  .eyebrow{font-size:12px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ash);}
+  .eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ash);}
   .btn{
     display:inline-flex;align-items:center;gap:10px;font-family:var(--body);font-weight:600;font-size:14px;
-    letter-spacing:.04em;text-transform:uppercase;padding:16px 30px;border:1px solid var(--paper);
+    letter-spacing:.04em;text-transform:uppercase;padding:15px 28px;border:1px solid var(--paper);
     background:var(--paper);color:var(--void);cursor:pointer;transition:background .2s ease,color .2s ease;
   }
   .btn:hover{background:transparent;color:var(--paper);}
-  .btn:focus-visible,.icon-btn:focus-visible,input:focus-visible,.tab:focus-visible{outline:2px solid var(--paper);outline-offset:3px;}
+  .btn:focus-visible,.icon-btn:focus-visible,.dot:focus-visible,.arrow:focus-visible{outline:2px solid var(--paper);outline-offset:3px;}
 
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:20px clamp(20px,5vw,64px);border-bottom:1px solid var(--line);}
-  .logo{font-family:var(--display);font-weight:700;font-size:20px;letter-spacing:.1em;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,5vw,64px);border-bottom:1px solid var(--line);}
+  .logo{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.1em;}
   .logo span{color:var(--ash);font-weight:500;}
-  .nav-actions{display:flex;align-items:center;gap:22px;}
+  .nav-actions{display:flex;align-items:center;gap:20px;}
   .icon-btn{display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--paper);font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:4px;}
   .icon-btn svg{width:18px;height:18px;}
   .icon-btn span{display:none;}
   @media(min-width:640px){.icon-btn span{display:inline;}}
 
-  /* PRODUCT TABS */
-  .tabs{border-bottom:1px solid var(--line);background:var(--void-2);}
-  .tab-list{display:flex;}
-  .tab{
-    flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:3px;
-    background:none;border:none;border-right:1px solid var(--line);color:var(--ash);
-    padding:18px clamp(16px,3vw,28px);cursor:pointer;text-align:left;
-    position:relative;transition:color .18s ease,background .18s ease;
-  }
-  .tab:last-child{border-right:none;}
-  .tab .tab-index{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;opacity:.7;}
-  .tab .tab-name{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:15px;letter-spacing:.03em;color:var(--paper);}
-  .tab::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--paper);transform:scaleX(0);transform-origin:left;transition:transform .25s ease;}
-  .tab:hover{background:rgba(245,244,239,0.04);}
-  .tab[aria-selected="true"]{color:var(--paper);}
-  .tab[aria-selected="true"]::after{transform:scaleX(1);}
-  @media(max-width:700px){
-    .tab .tab-index{display:none;}
-    .tab{padding:14px 10px;}
-    .tab .tab-name{font-size:12.5px;}
-  }
+  /* SWIPER */
+  .carousel{position:relative;padding-top:18px;}
+  .swipe-hint{text-align:center;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);margin:0 0 12px;}
+  .swiper{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .swiper::-webkit-scrollbar{display:none;}
+  .slide{flex:0 0 100%;scroll-snap-align:center;display:flex;flex-direction:column;padding:0 clamp(20px,5vw,64px);}
 
-  /* HERO */
-  .hero-wrap{padding:clamp(16px,3vw,28px) clamp(20px,5vw,64px) 0;}
-  .hero-media{position:relative;width:100%;aspect-ratio:4/3;max-height:76vh;background:var(--void-2);overflow:hidden;border:1px solid var(--line);}
-  @media(min-width:640px){.hero-media{aspect-ratio:16/9;max-height:90vh;}}
-  @media(min-width:860px){.hero-media{aspect-ratio:21/9;max-height:95vh;}}
-  .hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;opacity:0;transition:opacity .45s ease;}
-  .hero-media img.active{opacity:1;}
-  @media (prefers-reduced-motion: reduce){.hero-media img{transition:none;}}
+  .slide-media{position:relative;width:100%;aspect-ratio:4/3;max-height:42vh;background:var(--void-2);border:1px solid var(--line);overflow:hidden;}
+  .slide-media img{width:100%;height:100%;object-fit:contain;object-position:center;}
+  @media(min-width:640px){.slide-media{aspect-ratio:16/9;max-height:56vh;}}
+  @media(min-width:1000px){.slide-media{max-height:62vh;}}
 
-  .poster{padding:clamp(32px,6vw,64px) 0 clamp(48px,7vw,80px);border-bottom:1px solid var(--line);}
-  .poster-grid{display:grid;grid-template-columns:2fr 1fr;gap:clamp(24px,4vw,56px);align-items:end;}
-  .poster h1{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(32px,5.4vw,78px);line-height:.98;letter-spacing:-.01em;margin:0;transition:opacity .2s ease;}
-  .poster-side{display:flex;flex-direction:column;gap:20px;align-items:flex-start;}
-  .poster-side p{color:#d7d6cf;font-size:16px;line-height:1.6;margin:0;transition:opacity .2s ease;}
-  .poster-cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
-  .poster-cta .price{font-family:var(--display);font-weight:600;font-size:20px;}
-  @media(max-width:860px){.poster-grid{grid-template-columns:1fr;}.poster h1{font-size:clamp(30px,8vw,52px);}}
+  .slide-body{padding:22px 0 8px;max-width:640px;}
+  .slide-body .eyebrow{margin-bottom:8px;}
+  .slide-body h1{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(26px,5vw,42px);line-height:1.02;margin:0 0 10px;}
+  .slide-body .desc{color:#d7d6cf;font-size:14.5px;line-height:1.55;margin:0 0 18px;max-width:52ch;}
 
-  /* STATS */
-  .stats{border-bottom:1px solid var(--line);}
-  .stats-row{display:grid;grid-template-columns:repeat(4,1fr);}
-  .stat{padding:26px clamp(16px,2.5vw,28px);border-left:1px solid var(--line);}
-  .stat:first-child{border-left:none;}
-  .stat .num{font-family:var(--display);font-weight:700;font-size:clamp(22px,2.8vw,32px);transition:opacity .2s ease;}
-  .stat .label{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);margin-top:6px;transition:opacity .2s ease;}
-  @media(max-width:620px){
-    .stats-row{grid-template-columns:repeat(2,1fr);}
-    .stat:nth-child(3){border-left:none;}
-    .stat{border-top:1px solid var(--line);}
-    .stat:first-child,.stat:nth-child(2){border-top:none;}
-  }
+  .fact-row{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
+  .fact{border:1px solid var(--line-strong);padding:10px 16px;display:flex;flex-direction:column;gap:2px;}
+  .fact .fact-val{font-family:var(--display);font-weight:700;font-size:18px;}
+  .fact .fact-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ash);}
 
-  .section{padding:clamp(64px,9vw,120px) 0;}
-  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:clamp(32px,5vw,48px);flex-wrap:wrap;}
-  .section-head h2{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(28px,3.6vw,44px);margin:8px 0 0;}
-  .section-head p{color:var(--ash);font-size:14px;max-width:38ch;margin:0;}
+  .slide-cta{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .slide-cta .price{font-family:var(--display);font-weight:600;font-size:19px;}
 
-  .products{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);}
-  .card{background:var(--void);padding:28px;display:flex;flex-direction:column;transition:background .2s ease;}
-  .card[data-current="true"]{background:var(--void-2);}
-  .card-media{aspect-ratio:1/1;background:var(--void-2);overflow:hidden;margin-bottom:22px;}
-  .card-media img{width:100%;height:100%;object-fit:cover;}
-  .card-eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);display:flex;align-items:center;gap:8px;}
-  .card-eyebrow .current-flag{font-size:10px;letter-spacing:.1em;background:var(--paper);color:var(--void);padding:2px 7px;}
-  .card h3{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:24px;margin:8px 0 10px;}
-  .card p{color:var(--ash);font-size:14px;line-height:1.55;margin:0 0 20px;flex:1;}
-  .card-foot{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:16px;}
-  .card-foot .price{font-family:var(--display);font-weight:600;font-size:16px;}
-  .card-foot .text-link{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--line-strong);padding-bottom:2px;background:none;border-top:none;border-left:none;border-right:none;color:inherit;cursor:pointer;}
-  @media(max-width:900px){.products{grid-template-columns:1fr;}}
+  /* NAV CONTROLS */
+  .carousel-controls{display:flex;align-items:center;justify-content:center;gap:18px;padding:18px 0 6px;}
+  .dots{display:flex;gap:9px;}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--line-strong);border:none;padding:0;cursor:pointer;transition:background .2s ease,transform .2s ease;}
+  .dot[aria-current="true"]{background:var(--paper);transform:scale(1.3);}
+  .arrow{display:none;align-items:center;justify-content:center;width:38px;height:38px;border:1px solid var(--line-strong);background:none;color:var(--paper);cursor:pointer;border-radius:50%;}
+  .arrow svg{width:16px;height:16px;}
+  @media(min-width:760px){.arrow{display:flex;}}
 
-  .trust{border-top:1px solid var(--line);}
+  /* TRUST */
+  .trust{border-top:1px solid var(--line);margin-top:clamp(32px,5vw,56px);}
   .trust-row{display:flex;flex-wrap:wrap;}
-  .trust-item{flex:1 1 220px;padding:26px clamp(18px,3vw,32px);border-left:1px solid var(--line);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);display:flex;align-items:center;gap:10px;}
+  .trust-item{flex:1 1 180px;padding:22px clamp(16px,2.5vw,28px);border-left:1px solid var(--line);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--ash);display:flex;align-items:center;gap:9px;}
   .trust-item:first-child{border-left:none;}
-  .trust-item svg{width:16px;height:16px;flex-shrink:0;color:var(--paper);}
+  .trust-item svg{width:14px;height:14px;flex-shrink:0;color:var(--paper);}
+  @media(max-width:520px){.trust-item{flex:1 1 50%;border-left:none;border-top:1px solid var(--line);}
+    .trust-item:nth-child(odd){border-right:1px solid var(--line);}
+    .trust-item:first-child,.trust-item:nth-child(2){border-top:none;}}
 
-  footer{border-top:1px solid var(--line);padding-top:clamp(56px,8vw,88px);}
-  .footer-top{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;padding-bottom:56px;}
-  .footer-brand .logo{display:block;margin-bottom:14px;}
-  .footer-brand p{color:var(--ash);font-size:14px;max-width:32ch;line-height:1.6;margin:0;}
-  .footer-col h4{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--ash);margin:0 0 16px;}
-  .footer-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;}
-  .footer-col a{font-size:14px;color:var(--paper);}
-  .footer-col a:hover{color:var(--ash);}
-  .newsletter{border-top:1px solid var(--line);padding:36px 0;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;}
-  .newsletter h4{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:20px;margin:0;}
-  .newsletter-form{display:flex;gap:0;max-width:360px;width:100%;}
-  .newsletter-form input{flex:1;background:transparent;border:1px solid var(--line-strong);border-right:none;padding:14px 16px;color:var(--paper);font-family:var(--body);font-size:14px;}
+  footer{border-top:1px solid var(--line);padding:clamp(40px,6vw,64px) 0 0;}
+  .footer-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:24px;padding-bottom:32px;}
+  .footer-links{display:flex;gap:24px;flex-wrap:wrap;}
+  .footer-links a{font-size:12.5px;color:var(--ash);font-weight:600;letter-spacing:.04em;text-transform:uppercase;}
+  .footer-links a:hover{color:var(--paper);}
+  .newsletter{border-top:1px solid var(--line);padding:26px 0;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;}
+  .newsletter h4{font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:17px;margin:0;}
+  .newsletter-form{display:flex;max-width:320px;width:100%;}
+  .newsletter-form input{flex:1;background:transparent;border:1px solid var(--line-strong);border-right:none;padding:12px 14px;color:var(--paper);font-family:var(--body);font-size:13.5px;}
   .newsletter-form input::placeholder{color:var(--ash);}
-  .newsletter-form button{border:1px solid var(--paper);}
-  .footer-bottom{border-top:1px solid var(--line);padding:22px 0 40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--ash);letter-spacing:.04em;}
+  .newsletter-form button{border:1px solid var(--paper);padding:12px 22px;}
+  .footer-bottom{border-top:1px solid var(--line);padding:16px 0 32px;font-size:11px;color:var(--ash);}
   .footer-bottom a{color:var(--ash);}
   .footer-bottom a:hover{color:var(--paper);}
-  @media(max-width:860px){.footer-top{grid-template-columns:1fr 1fr;}}
-  @media(max-width:560px){.footer-top{grid-template-columns:1fr;}}
 </style>
 
 <nav class="nav">
@@ -150,178 +110,134 @@
   </div>
 </nav>
 
-<div class="tabs">
-  <div class="wrap">
-    <div class="tab-list" role="tablist" aria-label="Featured product">
-      <button class="tab" role="tab" data-product="creatine" aria-selected="true">
-        <span class="tab-index">01 &middot; Strength</span>
-        <span class="tab-name">Creatine</span>
-      </button>
-      <button class="tab" role="tab" data-product="protein" aria-selected="false">
-        <span class="tab-index">02 &middot; Recovery</span>
-        <span class="tab-name">Protein</span>
-      </button>
-      <button class="tab" role="tab" data-product="preignite" aria-selected="false">
-        <span class="tab-index">03 &middot; Focus</span>
-        <span class="tab-name">Pre-Ignite</span>
-      </button>
-    </div>
-  </div>
-</div>
+<div class="carousel">
+  <p class="swipe-hint">&larr; Swipe to explore the range &rarr;</p>
 
-<div class="hero-wrap">
-  <div class="hero-media" id="heroMedia">
-    <img src="creatine-tub.jpg" data-product="creatine" class="active" alt="ISRL Creatine tub and scoop on a gym floor with weights and a bench in the background.">
-    <img src="protein-tub.jpg" data-product="protein" alt="ISRL Whey Isolate tub and scoop of protein powder on a gym floor with weight plates in the background.">
-    <img src="preignite-pouch.jpg" data-product="preignite" alt="ISRL Pre-Ignite pouch and scoop of blue pre-workout powder in a gym, with ISRL wall signage in the background.">
-  </div>
-</div>
-
-<section class="poster wrap">
-  <div class="poster-grid">
-    <h1 id="posterHeadline">Built on what the data proves.</h1>
-    <div class="poster-side">
-      <p id="posterCopy">Micronised monohydrate, 5g per serving, unflavoured &mdash; dosed exactly as the literature recommends.</p>
-      <div class="poster-cta">
-        <a href="#shop" class="btn">Add to cart</a>
-        <span class="price" id="posterPrice">$34</span>
+  <div class="swiper" id="swiper" tabindex="0" role="region" aria-label="Product carousel">
+    <section class="slide" data-index="0">
+      <div class="slide-media"><img src="creatine-tub.jpg" alt="ISRL Creatine tub and scoop on a gym floor with weights and a bench in the background."></div>
+      <div class="slide-body">
+        <p class="eyebrow">01 &middot; Strength &amp; Recovery</p>
+        <h1>ISRL Creatine</h1>
+        <p class="desc">Micronised monohydrate, unflavoured &mdash; dosed exactly as the literature recommends.</p>
+        <div class="fact-row">
+          <div class="fact"><span class="fact-val">5G</span><span class="fact-label">Per serving</span></div>
+          <div class="fact"><span class="fact-val">100%</span><span class="fact-label">Pure monohydrate</span></div>
+        </div>
+        <div class="slide-cta"><a href="#" class="btn">Add to cart</a><span class="price">$34</span></div>
       </div>
+    </section>
+
+    <section class="slide" data-index="1">
+      <div class="slide-media"><img src="protein-tub.jpg" alt="ISRL Whey Isolate tub and scoop of protein powder on a gym floor with weight plates in the background."></div>
+      <div class="slide-body">
+        <p class="eyebrow">02 &middot; Recovery &amp; Lean Mass</p>
+        <h1>ISRL Whey Isolate</h1>
+        <p class="desc">Cold-filtered to strip lactose and fat. Mixes clean, no bloat, no filler carbs.</p>
+        <div class="fact-row">
+          <div class="fact"><span class="fact-val">27G</span><span class="fact-label">Protein / scoop</span></div>
+          <div class="fact"><span class="fact-val">&lt;1G</span><span class="fact-label">Lactose</span></div>
+        </div>
+        <div class="slide-cta"><a href="#" class="btn">Add to cart</a><span class="price">$54</span></div>
+      </div>
+    </section>
+
+    <section class="slide" data-index="2">
+      <div class="slide-media"><img src="preignite-pouch.jpg" alt="ISRL Pre-Ignite pouch and scoop of blue pre-workout powder in a gym, with ISRL wall signage in the background."></div>
+      <div class="slide-body">
+        <p class="eyebrow">03 &middot; Focus &amp; Output</p>
+        <h1>ISRL Pre-Ignite</h1>
+        <p class="desc">Clinically dosed caffeine, citrulline and theanine &mdash; not the crash after it.</p>
+        <div class="fact-row">
+          <div class="fact"><span class="fact-val">200MG</span><span class="fact-label">Caffeine</span></div>
+          <div class="fact"><span class="fact-val">6G</span><span class="fact-label">Citrulline</span></div>
+        </div>
+        <div class="slide-cta"><a href="#" class="btn">Add to cart</a><span class="price">$42</span></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="carousel-controls">
+    <button class="arrow" id="prevArrow" aria-label="Previous product">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <div class="dots" id="dots" role="tablist" aria-label="Select product">
+      <button class="dot" aria-current="true" data-goto="0" aria-label="ISRL Creatine"></button>
+      <button class="dot" data-goto="1" aria-label="ISRL Whey Isolate"></button>
+      <button class="dot" data-goto="2" aria-label="ISRL Pre-Ignite"></button>
     </div>
+    <button class="arrow" id="nextArrow" aria-label="Next product">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 6l6 6-6 6"/></svg>
+    </button>
   </div>
-</section>
+</div>
 
-<section class="stats wrap" style="padding:0 clamp(20px,5vw,64px);">
-  <div class="stats-row" id="statsRow">
-    <div class="stat"><div class="num" data-stat="0">5G</div><div class="label" data-label="0">Per serving</div></div>
-    <div class="stat"><div class="num" data-stat="1">100%</div><div class="label" data-label="1">Pure monohydrate</div></div>
-    <div class="stat"><div class="num" data-stat="2">3rd</div><div class="label" data-label="2">Party lab tested</div></div>
-    <div class="stat"><div class="num" data-stat="3">50</div><div class="label" data-label="3">Servings / pouch</div></div>
-  </div>
-</section>
-
-<section class="section wrap" id="shop">
-  <div class="section-head">
-    <div>
-      <p class="eyebrow">Featured</p>
-      <h2>The core range</h2>
-    </div>
-    <p>Three formulations, one standard: measured doses, published data, nothing hidden on the label.</p>
-  </div>
-  <div class="products" id="productGrid">
-    <article class="card" data-product="creatine" data-current="true">
-      <div class="card-media"><img src="creatine-pouch.jpg" alt="ISRL Creatine Monohydrate pouch, 250 grams, with a scoop of powder beside it."></div>
-      <p class="card-eyebrow">Strength &middot; Recovery <span class="current-flag">Viewing</span></p>
-      <h3>ISRL Creatine</h3>
-      <p>Micronised monohydrate, 5g per serving, unflavoured.</p>
-      <div class="card-foot"><span class="price">$34</span><button class="text-link" data-select="creatine">View</button></div>
-    </article>
-    <article class="card" data-product="protein">
-      <div class="card-media"><img src="protein-tub.jpg" alt="ISRL Whey Isolate tub, 900 grams, with a scoop of protein powder beside it."></div>
-      <p class="card-eyebrow">Recovery &middot; Lean Mass <span class="current-flag">Viewing</span></p>
-      <h3>ISRL Whey Isolate</h3>
-      <p>27g of protein per scoop, cold-filtered to strip lactose and fat.</p>
-      <div class="card-foot"><span class="price">$54</span><button class="text-link" data-select="protein">View</button></div>
-    </article>
-    <article class="card" data-product="preignite">
-      <div class="card-media"><img src="preignite-pouch.jpg" alt="ISRL Pre-Ignite pouch, 300 grams, with a scoop of blue pre-workout powder beside it."></div>
-      <p class="card-eyebrow">Focus &middot; Output <span class="current-flag">Viewing</span></p>
-      <h3>ISRL Pre-Ignite</h3>
-      <p>Clinically dosed caffeine, citrulline and theanine.</p>
-      <div class="card-foot"><span class="price">$42</span><button class="text-link" data-select="preignite">View</button></div>
-    </article>
-  </div>
-</section>
-
-<section class="trust wrap" style="padding:0 clamp(20px,5vw,64px);">
+<section class="trust wrap">
   <div class="trust-row">
     <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>Third-party tested</div>
-    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>GMP certified facility</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>GMP certified</div>
     <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>No proprietary blends</div>
-    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>Batch-verified purity</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>Batch-verified</div>
   </div>
 </section>
 
-<footer>
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="logo">ISRL <span>&mdash; LABS</span></div>
-        <p>Research-driven supplements for people who read the label before the marketing.</p>
-      </div>
-      <div class="footer-col"><h4>Shop</h4><ul><li><a href="#">Creatine</a></li><li><a href="#">Protein</a></li><li><a href="#">Pre-Workout</a></li><li><a href="#">Bundles</a></li></ul></div>
-      <div class="footer-col"><h4>Company</h4><ul><li><a href="#">About</a></li><li><a href="#">Research</a></li><li><a href="#">Contact</a></li></ul></div>
-      <div class="footer-col"><h4>Account</h4><ul><li><a href="#">Log in</a></li><li><a href="#">Create account</a></li><li><a href="#">Order status</a></li></ul></div>
-    </div>
-    <div class="newsletter">
-      <h4>Get the research notes</h4>
-      <form class="newsletter-form" onsubmit="return false;">
-        <input type="email" placeholder="you@email.com" aria-label="Email address">
-        <button type="submit" class="btn">Subscribe</button>
-      </form>
-    </div>
-    <div class="footer-bottom">
-      <span>&copy; 2026 ISRL. All rights reserved.</span>
-      <span><a href="#">Privacy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a> &nbsp;&middot;&nbsp; <a href="#">Shipping</a></span>
-    </div>
+<footer class="wrap">
+  <div class="footer-top">
+    <div class="logo">ISRL <span>&mdash; LABS</span></div>
+    <nav class="footer-links">
+      <a href="#">Shop</a><a href="#">Research</a><a href="#">About</a><a href="#">Contact</a><a href="#">Log in</a>
+    </nav>
   </div>
+  <div class="newsletter">
+    <h4>Get the research notes</h4>
+    <form class="newsletter-form" onsubmit="return false;">
+      <input type="email" placeholder="you@email.com" aria-label="Email address">
+      <button type="submit" class="btn">Subscribe</button>
+    </form>
+  </div>
+  <div class="footer-bottom">&copy; 2026 ISRL. All rights reserved. &nbsp;&middot;&nbsp; <a href="#">Privacy</a> &nbsp;&middot;&nbsp; <a href="#">Terms</a></div>
 </footer>
 
 <script>
-  var DATA = {
-    creatine: {
-      headline: "Built on what the data proves.",
-      copy: "Micronised monohydrate, 5g per serving, unflavoured — dosed exactly as the literature recommends.",
-      price: "$34",
-      stats: [["5G","Per serving"],["100%","Pure monohydrate"],["3rd","Party lab tested"],["50","Servings / pouch"]]
-    },
-    protein: {
-      headline: "27 grams that mix clean.",
-      copy: "Cold-filtered whey isolate, stripped of lactose and fat, built for recovery and lean mass.",
-      price: "$54",
-      stats: [["27G","Protein / scoop"],["<1G","Lactose"],["Cold","Filtered process"],["900G","Per tub"]]
-    },
-    preignite: {
-      headline: "Built for the working set.",
-      copy: "Clinically dosed caffeine, citrulline and theanine — not the crash after it.",
-      price: "$42",
-      stats: [["200MG","Caffeine"],["6G","Citrulline"],["200MG","Theanine"],["300G","Per pouch"]]
-    }
-  };
+  var swiper = document.getElementById('swiper');
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var dots = Array.prototype.slice.call(document.querySelectorAll('.dot'));
+  var current = 0;
+  var scrollTimer = null;
 
-  var tabs = document.querySelectorAll('.tab');
-  var heroImgs = document.querySelectorAll('#heroMedia img');
-  var cards = document.querySelectorAll('#productGrid .card');
-  var selected = 'creatine';
-
-  function render(key){
-    var d = DATA[key];
-    document.getElementById('posterHeadline').textContent = d.headline;
-    document.getElementById('posterCopy').textContent = d.copy;
-    document.getElementById('posterPrice').textContent = d.price;
-    d.stats.forEach(function(pair, i){
-      document.querySelector('[data-stat="'+i+'"]').textContent = pair[0];
-      document.querySelector('[data-label="'+i+'"]').textContent = pair[1];
-    });
-    heroImgs.forEach(function(img){ img.classList.toggle('active', img.dataset.product === key); });
+  function goTo(i){
+    i = Math.max(0, Math.min(slides.length - 1, i));
+    slides[i].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
   }
 
-  function setSelected(key){
-    selected = key;
-    tabs.forEach(function(t){ t.setAttribute('aria-selected', t.dataset.product === key ? 'true' : 'false'); });
-    cards.forEach(function(c){ c.dataset.current = (c.dataset.product === key) ? 'true' : 'false'; });
-    render(key);
+  function setActive(i){
+    current = i;
+    dots.forEach(function(d, idx){ d.setAttribute('aria-current', idx === i ? 'true' : 'false'); });
   }
 
-  tabs.forEach(function(tab){
-    tab.addEventListener('mouseenter', function(){ render(tab.dataset.product); });
-    tab.addEventListener('mouseleave', function(){ render(selected); });
-    tab.addEventListener('focus', function(){ render(tab.dataset.product); });
-    tab.addEventListener('click', function(){ setSelected(tab.dataset.product); });
+  swiper.addEventListener('scroll', function(){
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function(){
+      var mid = swiper.scrollLeft + swiper.clientWidth / 2;
+      var closest = 0, closestDist = Infinity;
+      slides.forEach(function(s, idx){
+        var center = s.offsetLeft + s.clientWidth / 2;
+        var dist = Math.abs(center - mid);
+        if(dist < closestDist){ closestDist = dist; closest = idx; }
+      });
+      setActive(closest);
+    }, 80);
+  }, {passive:true});
+
+  dots.forEach(function(dot){
+    dot.addEventListener('click', function(){ goTo(parseInt(dot.dataset.goto, 10)); });
   });
 
-  document.querySelectorAll('[data-select]').forEach(function(btn){
-    btn.addEventListener('click', function(){ setSelected(btn.dataset.select); });
-  });
+  document.getElementById('prevArrow').addEventListener('click', function(){ goTo(current - 1); });
+  document.getElementById('nextArrow').addEventListener('click', function(){ goTo(current + 1); });
 
-  setSelected('creatine');
+  swiper.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight'){ goTo(current + 1); }
+    if(e.key === 'ArrowLeft'){ goTo(current - 1); }
+  });
 </script>
