@@ -1,0 +1,115 @@
+<title>ISRL Log In</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+  :root{
+    --void:#0a0a09;
+    --void-2:#141412;
+    --paper:#f5f4ef;
+    --ash:#8c8c86;
+    --line:rgba(245,244,239,0.14);
+    --line-strong:rgba(245,244,239,0.3);
+    --display:'Oswald','Arial Narrow',sans-serif;
+    --body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--void);color:var(--paper);font-family:var(--body);margin:0;
+    -webkit-font-smoothing:antialiased;min-height:100dvh;display:flex;flex-direction:column;
+  }
+  img{display:block;}
+  a{color:inherit;text-decoration:none;}
+  button{font:inherit;}
+
+  .top{display:flex;align-items:center;padding:20px clamp(20px,5vw,56px);}
+  .back-link{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ash);}
+  .back-link:hover{color:var(--paper);}
+  .back-link svg{width:15px;height:15px;}
+
+  .center{flex:1;display:flex;align-items:center;justify-content:center;padding:24px clamp(20px,5vw,56px) 48px;}
+  .card{width:100%;max-width:420px;}
+
+  .brand{text-align:center;margin-bottom:36px;}
+  .logo{font-family:var(--display);font-weight:700;font-size:24px;letter-spacing:.1em;}
+  .logo span{color:var(--ash);font-weight:500;}
+  .slogan{
+    display:block;margin-top:10px;font-family:var(--display);font-weight:600;text-transform:uppercase;
+    font-size:14px;letter-spacing:.04em;color:var(--ash);
+  }
+
+  h1{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(26px,5vw,32px);margin:0 0 8px;text-align:center;}
+  .sub{color:var(--ash);font-size:14px;text-align:center;margin:0 0 32px;line-height:1.5;}
+
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ash);margin-bottom:8px;}
+  .field input{
+    width:100%;background:transparent;border:1px solid var(--line-strong);padding:14px 16px;
+    color:var(--paper);font-family:var(--body);font-size:15px;
+  }
+  .field input::placeholder{color:#5c5c57;}
+  .field input:focus-visible{outline:2px solid var(--paper);outline-offset:2px;}
+
+  .row-between{display:flex;justify-content:space-between;align-items:center;margin:-6px 0 24px;}
+  .remember{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ash);}
+  .remember input{accent-color:var(--paper);}
+  .forgot{font-size:13px;font-weight:600;color:var(--ash);border-bottom:1px solid var(--line-strong);padding-bottom:1px;}
+  .forgot:hover{color:var(--paper);}
+
+  .btn{
+    width:100%;display:flex;align-items:center;justify-content:center;gap:10px;
+    font-family:var(--body);font-weight:600;font-size:14px;letter-spacing:.04em;text-transform:uppercase;
+    padding:15px 28px;border:1px solid var(--paper);background:var(--paper);color:var(--void);
+    cursor:pointer;transition:background .2s ease,color .2s ease;
+  }
+  .btn:hover{background:transparent;color:var(--paper);}
+  .btn:focus-visible{outline:2px solid var(--paper);outline-offset:3px;}
+
+  .divider{display:flex;align-items:center;gap:14px;margin:28px 0;color:var(--ash);font-size:11px;letter-spacing:.1em;text-transform:uppercase;}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  .create{text-align:center;font-size:14px;color:var(--ash);}
+  .create a{color:var(--paper);font-weight:600;border-bottom:1px solid var(--line-strong);padding-bottom:1px;}
+  .create a:hover{color:var(--ash);border-color:transparent;}
+
+  .legal{text-align:center;padding:0 20px 28px;font-size:11.5px;color:#5c5c57;}
+</style>
+
+<div class="top">
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 18l-6-6 6-6"/></svg>
+    Back to shop
+  </a>
+</div>
+
+<div class="center">
+  <div class="card">
+    <div class="brand">
+      <a href="index.html" class="logo">ISRL <span>&mdash; LABS</span></a>
+      <span class="slogan">Pay for research, not the markup.</span>
+    </div>
+
+    <h1>Log in</h1>
+    <p class="sub">Welcome back. Enter your details to continue.</p>
+
+    <form onsubmit="return false;">
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="you@email.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" autocomplete="current-password">
+      </div>
+      <div class="row-between">
+        <label class="remember"><input type="checkbox"> Remember me</label>
+        <a href="#" class="forgot">Forgot password?</a>
+      </div>
+      <button type="submit" class="btn">Log in</button>
+    </form>
+
+    <div class="divider">or</div>
+    <p class="create">Don&rsquo;t have an account? <a href="#">Create one</a></p>
+  </div>
+</div>
+
+<p class="legal">&copy; 2026 ISRL. All rights reserved.</p>

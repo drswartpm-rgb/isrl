@@ -27,9 +27,14 @@
   .btn:hover{background:transparent;color:var(--paper);}
   .btn:focus-visible,.icon-btn:focus-visible,.dot:focus-visible,.arrow:focus-visible{outline:2px solid var(--paper);outline-offset:3px;}
 
-  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,5vw,64px);border-bottom:1px solid var(--line);}
-  .logo{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.1em;}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:18px clamp(20px,5vw,64px);border-bottom:1px solid var(--line);gap:16px;}
+  .logo-group{display:flex;align-items:center;gap:16px;min-width:0;}
+  .logo{font-family:var(--display);font-weight:700;font-size:19px;letter-spacing:.1em;white-space:nowrap;}
   .logo span{color:var(--ash);font-weight:500;}
+  .slogan{display:none;font-family:var(--display);font-weight:600;text-transform:uppercase;font-size:15px;letter-spacing:.03em;color:var(--paper);padding-left:16px;border-left:1px solid var(--line-strong);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  @media(min-width:560px){.slogan{display:inline-block;font-size:16px;}}
+  @media(min-width:900px){.slogan{font-size:21px;}}
+  @media(min-width:1180px){.slogan{font-size:24px;}}
   .nav-actions{display:flex;align-items:center;gap:20px;}
   .icon-btn{display:flex;align-items:center;gap:8px;background:none;border:none;color:var(--paper);font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;padding:4px;}
   .icon-btn svg{width:18px;height:18px;}
@@ -100,12 +105,15 @@
 </style>
 
 <nav class="nav">
-  <div class="logo">ISRL <span>&mdash; LABS</span></div>
+  <div class="logo-group">
+    <div class="logo">ISRL <span>&mdash; LABS</span></div>
+    <span class="slogan">Pay for research, not the markup.</span>
+  </div>
   <div class="nav-actions">
-    <button class="icon-btn" aria-label="Log in">
+    <a href="login.html" class="icon-btn" aria-label="Log in">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20c1.6-4 5-5.6 7.5-5.6s5.9 1.6 7.5 5.6"/></svg>
       <span>Log in</span>
-    </button>
+    </a>
     <button class="icon-btn" aria-label="Cart, 0 items">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7h16l-1.4 10.2a2 2 0 0 1-2 1.8H7.4a2 2 0 0 1-2-1.8L4 7Z"/><path d="M8 7V5.5A4 4 0 0 1 12 1.5a4 4 0 0 1 4 4V7"/></svg>
       <span>Cart</span>
