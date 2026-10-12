@@ -43,15 +43,18 @@
   .swiper::-webkit-scrollbar{display:none;}
   .slide{flex:0 0 100%;scroll-snap-align:center;display:flex;flex-direction:column;padding:0 clamp(20px,5vw,64px);}
 
-  .slide-media{position:relative;width:100%;aspect-ratio:4/3;max-height:42vh;background:var(--void-2);border:1px solid var(--line);overflow:hidden;}
+  .slide-media{position:relative;width:100%;aspect-ratio:4/3;max-height:48vh;background:var(--void-2);border:1px solid var(--line);overflow:hidden;}
   .slide-media img{width:100%;height:100%;object-fit:contain;object-position:center;}
-  @media(min-width:640px){.slide-media{aspect-ratio:16/9;max-height:56vh;}}
-  @media(min-width:1000px){.slide-media{max-height:62vh;}}
+  @media(min-width:640px){.slide-media{aspect-ratio:16/9;max-height:63vh;}}
+  @media(min-width:1000px){.slide-media{max-height:70vh;}}
 
   .slide-body{padding:22px 0 8px;max-width:640px;}
   .slide-body .eyebrow{margin-bottom:8px;}
-  .slide-body h1{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(26px,5vw,42px);line-height:1.02;margin:0 0 10px;}
-  .slide-body .desc{color:#d7d6cf;font-size:14.5px;line-height:1.55;margin:0 0 18px;max-width:52ch;}
+  .slide-body h1{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:clamp(26px,5vw,42px);line-height:1.02;margin:0 0 16px;}
+
+  .why-list{list-style:none;margin:0 0 20px;padding:0;display:flex;flex-direction:column;gap:10px;}
+  .why-list li{display:flex;align-items:flex-start;gap:10px;font-size:15px;line-height:1.5;color:var(--paper);}
+  .why-list svg{width:16px;height:16px;flex-shrink:0;margin-top:3px;color:var(--ash);}
 
   .fact-row{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
   .fact{border:1px solid var(--line-strong);padding:10px 16px;display:flex;flex-direction:column;gap:2px;}
@@ -119,7 +122,11 @@
       <div class="slide-body">
         <p class="eyebrow">01 &middot; Strength &amp; Recovery</p>
         <h1>ISRL Creatine</h1>
-        <p class="desc">Micronised monohydrate, unflavoured &mdash; dosed exactly as the literature recommends.</p>
+        <ul class="why-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>The most researched performance ingredient in sports science</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>Builds strength and power output across every set, not just the first</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>Shortens recovery time between training sessions</li>
+        </ul>
         <div class="fact-row">
           <div class="fact"><span class="fact-val">5G</span><span class="fact-label">Per serving</span></div>
           <div class="fact"><span class="fact-val">100%</span><span class="fact-label">Pure monohydrate</span></div>
@@ -133,7 +140,11 @@
       <div class="slide-body">
         <p class="eyebrow">02 &middot; Recovery &amp; Lean Mass</p>
         <h1>ISRL Whey Isolate</h1>
-        <p class="desc">Cold-filtered to strip lactose and fat. Mixes clean, no bloat, no filler carbs.</p>
+        <ul class="why-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>Fast-absorbing protein for muscle repair right after training</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>Cold-filtered to strip out lactose and fat, so it sits easier</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>Hits your daily protein target without the extra calories</li>
+        </ul>
         <div class="fact-row">
           <div class="fact"><span class="fact-val">27G</span><span class="fact-label">Protein / scoop</span></div>
           <div class="fact"><span class="fact-val">&lt;1G</span><span class="fact-label">Lactose</span></div>
@@ -147,7 +158,11 @@
       <div class="slide-body">
         <p class="eyebrow">03 &middot; Focus &amp; Output</p>
         <h1>ISRL Pre-Ignite</h1>
-        <p class="desc">Clinically dosed caffeine, citrulline and theanine &mdash; not the crash after it.</p>
+        <ul class="why-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>Clinically dosed caffeine for sustained energy, not a spike and crash</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>Citrulline supports blood flow and endurance mid-set</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 6 9 17l-5-5"/></svg>Theanine smooths the caffeine edge so focus stays sharp</li>
+        </ul>
         <div class="fact-row">
           <div class="fact"><span class="fact-val">200MG</span><span class="fact-label">Caffeine</span></div>
           <div class="fact"><span class="fact-val">6G</span><span class="fact-label">Citrulline</span></div>
